@@ -6,11 +6,18 @@ WHITE = (255, 255, 255)
 GRAY = (25, 25, 25)
 WIN_SIZE = 500
 
+cur_states = [0] * 400
+cur_states[10] = 1
+cur_states[30] = 1
+cur_states[50] = 1
+next_states = []
+
 pygame.init()
- 
+
 # Set the width and height of the screen [width, height]
 size = (WIN_SIZE, WIN_SIZE)
 screen = pygame.display.set_mode(size)
+
 
 # Add a title
 pygame.display.set_caption("Conway's Game of Life")
@@ -39,7 +46,19 @@ while not done:
     screen.fill(GRAY)
  
     # --- Drawing code should go here
-   
+    x = 5
+    cur_index = 0
+    while x < WIN_SIZE:
+        y = 5
+        while y < WIN_SIZE:
+            state = cur_states[cur_index]
+            if state == 0:
+                pygame.draw.rect(screen, BLACK, pygame.Rect(x, y, 20, 20))
+            else:
+                pygame.draw.rect(screen, WHITE, pygame.Rect(x, y, 20, 20))
+            y += 25
+            cur_index += 1
+        x += 25
 
     # --- Go ahead and update the screen with what we've drawn.
     pygame.display.flip()
